@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group([
+    'prefix'=>'api/v1',
+    'as' => 'admin.',
+    'namespace'=>'API',
+    'middleware' => ['auth:api','admin']
+],function() {
+
+  //  Route::post('register','');
+
+
+});
+    
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

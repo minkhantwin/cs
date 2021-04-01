@@ -7,8 +7,8 @@
       <div class="container shadow p-5 mb-5 bg-white rounded">
         <div class="row">
           <div class="col-md-5 d-flex flex-column justify-content-center">
-            <h2>What is {{ config('app.name', 'Collective Survey')}}?</h2>
-            <p>
+            <h2 class="header-responsive">What is {{ config('app.name', 'Collective Survey')}}?</h2>
+            <p class="awesome-font info-text-responsive">
               Collective survey is a survey website for bussiness group, organization, camp,etc. It offers online voting
               and survey system within community.
             </p>

@@ -17,7 +17,12 @@ class Choice extends Model
     ];
 
     public function poll() {
-        return $this->hasMany('App\Models\Poll');
+        return $this->belongsTo('App\Models\Poll');
+    }
+
+    public function vote()
+    {
+        return $this->hasMany(Vote::class);
     }
 
 }

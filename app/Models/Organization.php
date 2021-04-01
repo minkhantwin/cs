@@ -21,7 +21,11 @@ class Organization extends Model
     public $primaryKey = 'id';
 
     public function user() {
-        return $this->hasMany('App\User');
+        return $this->hasMany(User::class);
+    }
+
+    public function poll() {
+        return $this->hasMany('App\Poll');
     }
 
 }

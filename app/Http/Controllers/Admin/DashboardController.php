@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Poll;
+use App\Models\Choice;
+
 
 
 class DashboardController extends Controller
@@ -25,6 +28,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $org_id = auth()->user()->organization_id;
+        $polls = Poll::where('organization_id',$org_id)->orderBy('created_at','desc')->take(10)->get();
+
+        $vote_count = Choice::where('poll_id',$polls);
+
+        return view('admin.dashboard')->with('polls',$polls->toArray());
+        
+
     }
+
+
 }

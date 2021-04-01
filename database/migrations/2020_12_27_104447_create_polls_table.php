@@ -21,7 +21,9 @@ class CreatePollsTable extends Migration
             ->on('organizations')
             ->onDelete('cascade');
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('description');
+            $table->timestamp('deadline');
+            $table->boolean('show_result')->default(true);
             $table->timestamps();
         });
     }

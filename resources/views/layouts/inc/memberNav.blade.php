@@ -14,7 +14,13 @@
            
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="/member" class="nav-link">Dashboard</a>
+                    <a href="/member" class="nav-link">Poll</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/member" class="nav-link">Survey</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/member" class="nav-link">Meeting</a>
                 </li>
                 
             </ul>

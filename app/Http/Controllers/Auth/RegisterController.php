@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MailController;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Organization;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Rules\isExistOrg;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 
 class RegisterController extends Controller
@@ -91,9 +94,12 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function register(Request $request)
     {
+      
+        // MailController::sendSignupEmail('minkhant','minkhant144.mk@gmail.com', 'sdfdf');
         // memeber registration
+        $data = $request->toArray();
         if(isset($data['invite_token']) && $data['invite_token'] !== '')
         {
             $str = explode("??", base64_decode($data['invite_token']));
@@ -104,7 +110,9 @@ class RegisterController extends Controller
                    'email' => $data['email'],
                    'password' => Hash::make($data['password']),
                    'is_admin' => '0', //which is member
-                   'organization_id' => $invite_org_id
+                   'organization_id' => $invite_org_id,
+                   'verification_code' => sha1(time()),
+                   
             ]);
             
         }
@@ -117,6 +125,7 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'is_admin' => $data['is_admin'],
+                'verification_code' => sha1(time()),
                 
             ]);
             $org = Organization::create([
@@ -134,8 +143,15 @@ class RegisterController extends Controller
             $user->save();
 
         }
+
+        if($user != null)
+        {
+            MailController::sendSignupEmail($user->name,$user->email, $user->verification_code);
+            return redirect()->back()->with('status','success');
+        }
+
         
-        return $user;
+        return redirect()->back()->with('status','error');
             
     }
 
@@ -147,5 +163,24 @@ class RegisterController extends Controller
         }
         return '/member';
     }
+
+    public function verifyEmail(Request $request)
+    {
+        $verification_code = $request->input('code');
+        $user = User::where('verification_code',$verification_code)->first();
+
+        if($user != null)
+        {
+            $user->is_verified = 1;
+            $user->email_verified_at = Carbon::now();
+            $user->save();
+            return  redirect()->to('login');
+        }
+
+
+    }
+
+
+
 
 }

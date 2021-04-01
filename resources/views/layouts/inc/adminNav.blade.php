@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+    <div class="container-fluid m-0">
+        <a class="navbar-brand p-0 d-flex align-items-center" href="{{ url('/') }}">
             <span ><img src="{{ asset('logos/collective_survey.png') }}"/></span>
             <h3 class="brand_logo">{{ config('app.name', 'Collective Survey') }}</h3>
         </a>
@@ -22,9 +22,6 @@
                 <li class="nav-item">
                     <a href="/" class="nav-link">Start Survey</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/" class="nav-link">Schedule Meeting</a>
-                </li>
             </ul>
             
             <!-- Right Side Of Navbar -->
@@ -32,7 +29,7 @@
                 <!-- Authentication Links -->
                 
                 <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" style="font-family: 'IBM Plex Serif', serif;font-style: italic" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
 

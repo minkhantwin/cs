@@ -19,6 +19,12 @@
                         </div>
                         @enderror
 
+                        @error('invite_token')
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
+                        @enderror
+
                         
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>

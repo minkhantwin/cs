@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Traits\Uuids;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,Uuids;
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
-        'organization_id'
+        'organization_id',
+        'verification_code'
     ];
 
     /**
@@ -44,9 +46,15 @@ class User extends Authenticatable
     ];
 
     public $primaryKey = 'id';
+//    public $timestamps = false;
 
     public function organization() {
-        return $this->belongsTo('App\Organization');
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function vote()
+    {
+        return $this->hasMany(Vote::class);
     }
 
 

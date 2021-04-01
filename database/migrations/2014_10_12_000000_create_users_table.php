@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('is_admin');
             $table->uuid('organization_id')->nullable();
+            $table->string('verification_code')->nullable();
+            $table->integer('is_verified')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

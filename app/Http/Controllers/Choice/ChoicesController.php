@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Choice;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Rules\MinChoice;
-use App\Models\Poll;
-use App\Models\Choice;
 
-class PollsController extends Controller
+class ChoicesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +15,6 @@ class PollsController extends Controller
     public function index()
     {
         //
-
     }
 
     /**
@@ -29,7 +25,6 @@ class PollsController extends Controller
     public function create()
     {
         //
-        return view('polls/create');
     }
 
     /**
@@ -41,31 +36,6 @@ class PollsController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request,[
-            'title' => 'required',
-            'choices'  => ['required','array',new MinChoice]           
-        ]);
-
-        $poll = new Poll;
-        $poll->title = $request->input('title');
-        $poll->description = $request->input('description');
-        $poll->organization_id = auth()->user()->organization_id;
-        $poll->save();
-
-        $choices = $request->input('choices');
-        foreach($choices as $c)
-        {
-            if($c !== NULL)
-            {
-                $choice = new Choice;
-                $choice->poll_id = $poll->id;
-                $choice->choice = $c;
-                $choice->save();
-            }
-        }
-
-        return redirect('/admin')->with('success','Poll created successfully');
-
     }
 
     /**
